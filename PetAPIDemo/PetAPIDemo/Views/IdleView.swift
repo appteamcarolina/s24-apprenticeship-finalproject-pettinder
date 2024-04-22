@@ -61,7 +61,3 @@ struct IdleView: View {
     }
 }
 
-
-#Preview {
-    IdleView(vm: PetViewModel())
-}

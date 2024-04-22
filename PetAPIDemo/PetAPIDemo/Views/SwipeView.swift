@@ -60,11 +60,12 @@ struct SwipeView: View {
                             .toolbarBackground(.visible, for: .tabBar)
                     }
             }
+        .accentColor(Color.pink1)
         }
     }
 
 #Preview {
     NavigationStack {
-        SwipeView(vm: PetViewModel())
+        SwipeView(vm: PetViewModel(postalcode: "27707"))
     }
 }

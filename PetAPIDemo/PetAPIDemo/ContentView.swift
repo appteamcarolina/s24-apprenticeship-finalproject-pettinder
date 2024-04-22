@@ -12,15 +12,22 @@ struct ContentView: View {
     @EnvironmentObject private var locationManager: LocationManager
 
     var body: some View {
-        if locationManager.hasLocationAccess {
-            if let userLocation = locationManager.postalCode {
-                SwitchView(vm: PetViewModel(postalcode: userLocation))
-            }
-        } else {
-            LoadingView()
-                .onAppear {
-                    locationManager.requestLocation()
+        Group {
+            if locationManager.hasLocationAccess {
+                if let userLocation = locationManager.postalCode {
+                    SwitchView(vm: PetViewModel(postalcode: userLocation))
                 }
+            } else {
+                LoadingView()
+            }
+        }
+        .onAppear {
+            locationManager.requestLocation()
+        }
+        .onChange(of: locationManager.hasLocationAccess) { _, hasLocationAccess in
+            if hasLocationAccess {
+                locationManager.requestLocation()
+            }
         }
     }
 }

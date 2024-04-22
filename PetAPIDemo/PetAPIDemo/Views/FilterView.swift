@@ -12,25 +12,28 @@ struct FilterView: View {
     @ObservedObject var vm: PetViewModel
     @State var postal: String = ""
     @State var miles: String = ""
-    
+
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Text("**Enter a Postal Code**")
-                    .foregroundStyle(.black)
-                TextField("\(vm.postalcode)", text: $postal)
-                    .multilineTextAlignment(.trailing)
-            }
-            .padding()
-            HStack {
-                Text("**Enter Radius in Miles**")
-                    .foregroundStyle(.black)
-                TextField("\(vm.miles.description)", text: $miles)
-                    .multilineTextAlignment(.trailing)
+        VStack {
+            VStack(alignment: .leading) {
+                HStack {
+                    Text("**Enter a Postal Code**")
+                        .foregroundStyle(.black)
+                    TextField("\(vm.postalcode)", text: $postal)
+                        .multilineTextAlignment(.trailing)
+                }
+                .padding()
+                HStack {
+                    Text("**Enter Radius in Miles**")
+                        .foregroundStyle(.black)
+                    TextField("\(vm.miles.description)", text: $miles)
+                        .multilineTextAlignment(.trailing)
+                }
+                .padding()
             }
             Button {
                 vm.miles = Int(miles) ?? vm.miles
-                vm.postalcode = postal ?? vm.postalcode
+                vm.postalcode = postal
                 showingMoreInfo.toggle()
                 Task {
                     try await vm.fetchPets()
@@ -50,4 +53,3 @@ struct FilterView: View {
         }
     }
 }
-

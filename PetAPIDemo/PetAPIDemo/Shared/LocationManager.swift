@@ -12,27 +12,46 @@ class LocationManager: NSObject, ObservableObject {
     }
 
     func requestLocation() {
-        manager.requestLocation()
+        if (hasLocationAccess) {
+            manager.requestLocation()
+        }
     }
-    
 }
 
 extension LocationManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
-            self.hasLocationAccess = true
-            
             let geocoder = CLGeocoder()
             geocoder.reverseGeocodeLocation(location) { placemarks, error in
                 if let error = error {
                     print("Reverse geocoding error: \(error.localizedDescription)")
                     return
                 }
-                
+
                 if let placemark = placemarks?.first {
                     self.postalCode = placemark.postalCode
                 }
             }
+        }
+    }
+
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .notDetermined:
+            hasLocationAccess = false
+        case .restricted:
+            hasLocationAccess = false
+        case .denied:
+            hasLocationAccess = false
+        case .authorizedAlways:
+            hasLocationAccess = true
+        case .authorizedWhenInUse:
+            hasLocationAccess = true
+        case .authorized:
+            hasLocationAccess = true
+        @unknown default:
+            print("Unknown locationAuthorization state")
+            hasLocationAccess = false
         }
     }
 

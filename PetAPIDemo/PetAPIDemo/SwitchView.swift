@@ -26,6 +26,6 @@ struct SwitchView: View {
     }
 }
 
-#Preview {
-    SwitchView(vm: PetViewModel(userLoc: CLLocation(latitude: 35.913200, longitude: -79.055847)))
-}
+//#Preview {
+//    SwitchView(vm: PetViewModel(postalcode: "27707"))
+//}

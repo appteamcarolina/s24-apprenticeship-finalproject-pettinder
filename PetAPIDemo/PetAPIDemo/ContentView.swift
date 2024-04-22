@@ -13,12 +13,14 @@ struct ContentView: View {
 
     var body: some View {
         if locationManager.hasLocationAccess {
-            if let userLocation = locationManager.userLocation {
-                SwitchView(vm: PetViewModel(userLoc: userLocation))
+            if let userLocation = locationManager.postalCode {
+                SwitchView(vm: PetViewModel(postalcode: userLocation))
             }
-            Text("\(locationManager.userLocation)")
         } else {
-            RequestLocationAccessView()
+            LoadingView()
+                .onAppear {
+                    locationManager.requestLocation()
+                }
         }
     }
 }

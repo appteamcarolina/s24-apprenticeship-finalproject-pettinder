@@ -14,12 +14,11 @@ class PetViewModel: ObservableObject {
     @Published var pets: [Animal] = []
     @Published var included: [Included] = []
     @Published var state: loadingState = .idle
-    @Published var userLoc: CLLocation
+    @Published var postalcode: String
     @Published var miles = 25
-    @Published var postal = 27707
     
-    init(userLoc: CLLocation) {
-        self.userLoc = userLoc
+    init(postalcode: String) {
+        self.postalcode = postalcode
     }
     
     enum loadingState {
@@ -30,7 +29,7 @@ class PetViewModel: ObservableObject {
     
     func fetchPets() async throws {
         state = .loading
-        let data = try await PetService.fetchPets()
+        let data = try await PetService.fetchPets(miles: miles, postalcode: postalcode)
         pets = data.data
         included = data.included
         state = .working

@@ -39,8 +39,8 @@ struct SwipeView: View {
         }
     }
 
-//#Preview {
-//    NavigationStack {
-//        SwipeView(vm: PetViewModel())
-//    }
-//}
+#Preview {
+    NavigationStack {
+        SwipeView(vm: PetViewModel(postalcode: "27707"))
+    }
+}

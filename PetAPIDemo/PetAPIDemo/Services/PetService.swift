@@ -12,13 +12,13 @@ class PetService: ObservableObject {
     private static let decoder = JSONDecoder()
     private static let encoder = JSONEncoder()
     
-    static func fetchPets() async throws -> AnimalData {
+    static func fetchPets(miles: Int, postalcode: String) async throws -> AnimalData {
         guard let url = URL(string: "https://api.rescuegroups.org/v5/public/animals/search/available/haspic?sort=random&limit=100") else {
             fatalError("Invalid URL")
         }
         var request = URLRequest(url: url)
         
-        let body = FilterData(data: FilterInfo(filterRadius: FilterRadius(miles: 25, postalcode: 27707)))
+        let body = FilterData(data: FilterInfo(filterRadius: FilterRadius(miles: miles, postalcode: Int(postalcode) ?? 27707)))
         let encodedData = try encoder.encode(body)
         
         request.httpBody = encodedData

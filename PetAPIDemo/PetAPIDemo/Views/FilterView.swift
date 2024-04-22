@@ -18,7 +18,7 @@ struct FilterView: View {
             HStack {
                 Text("**Enter a Postal Code**")
                     .foregroundStyle(.black)
-                TextField("\(vm.postal.description)", text: $postal)
+                TextField("\(vm.postalcode)", text: $postal)
                     .multilineTextAlignment(.trailing)
             }
             .padding()
@@ -32,7 +32,7 @@ struct FilterView: View {
         }
             Button {
                 vm.miles = Int(miles) ?? vm.miles
-                vm.postal = Int(postal) ?? vm.postal
+                vm.postalcode = postal ?? vm.postalcode
                 showingMoreInfo.toggle()
             } label: {
                 HStack {

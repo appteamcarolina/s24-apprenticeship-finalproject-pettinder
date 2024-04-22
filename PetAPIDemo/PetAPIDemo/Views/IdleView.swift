@@ -18,7 +18,6 @@ struct IdleView: View {
             }
         }) {
             VStack {
-                Text("\(vm.userLoc)")
                 Image("WhiskerLogo")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -62,7 +61,3 @@ struct IdleView: View {
     }
 }
 
-
-//#Preview {
-//    IdleView(vm: PetViewModel())
-//}

@@ -36,17 +36,11 @@ struct SwipeView: View {
                     .toolbarBackground(.visible, for: .tabBar)
             }
         .accentColor(Color.pink1)
-
-            //        NavigationLink {
-            //            SavedView()
-            //        } label: {
-            //            Text("Checked Saved")
-            //        }
         }
     }
 
-#Preview {
-    NavigationStack {
-        SwipeView(vm: PetViewModel())
-    }
-}
+//#Preview {
+//    NavigationStack {
+//        SwipeView(vm: PetViewModel())
+//    }
+//}

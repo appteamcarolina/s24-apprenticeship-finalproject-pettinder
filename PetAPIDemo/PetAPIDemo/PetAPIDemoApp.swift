@@ -10,9 +10,12 @@ import SwiftData
 
 @main
 struct PetAPIDemoApp: App {
+    let locationManager = LocationManager()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(locationManager)
         }
         .modelContainer(for: AnimalDataItem.self)
     }

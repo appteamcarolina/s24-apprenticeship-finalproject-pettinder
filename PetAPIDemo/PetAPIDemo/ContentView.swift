@@ -8,28 +8,21 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var vm = PetViewModel()
     @State private var showingSavedView = false
+    @EnvironmentObject private var locationManager: LocationManager
 
     var body: some View {
-        switch vm.state {
-        case .idle:
-            IdleView(vm: vm)
-        case .loading:
-            LoadingView()
-        case .working:
-            NavigationStack {
-                SwipeView(vm: vm)
-
-                //            LazyHStack {
-                //                <#code#>
-                //            }
-                //            .scrollTransition(transition: T##(EmptyVisualEffect, ScrollTransitionPhase) -> VisualEffect)
+        if locationManager.hasLocationAccess {
+            if let userLocation = locationManager.userLocation {
+                SwitchView(vm: PetViewModel(userLoc: userLocation))
             }
+            Text("\(locationManager.userLocation)")
+        } else {
+            RequestLocationAccessView()
         }
     }
 }
 
 #Preview {
-    ContentView()
+    ContentView().environmentObject(LocationManager())
 }

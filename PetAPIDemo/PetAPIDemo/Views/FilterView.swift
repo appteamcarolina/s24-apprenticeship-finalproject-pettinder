@@ -28,12 +28,13 @@ struct FilterView: View {
                 TextField("\(vm.miles.description)", text: $miles)
                     .multilineTextAlignment(.trailing)
             }
-            .padding()
-        }
             Button {
                 vm.miles = Int(miles) ?? vm.miles
                 vm.postalcode = postal ?? vm.postalcode
                 showingMoreInfo.toggle()
+                Task {
+                    try await vm.fetchPets()
+                }
             } label: {
                 HStack {
                     Text("Submit")
@@ -45,6 +46,7 @@ struct FilterView: View {
                 .padding(.horizontal, 30)
                 .background(LinearGradient(gradient: Gradient(colors: [Color.pink, .yellow1]), startPoint: .leading, endPoint: .trailing))
                 .cornerRadius(30)
+            }
         }
     }
 }

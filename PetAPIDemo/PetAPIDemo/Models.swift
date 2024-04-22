@@ -1,7 +1,6 @@
 import Foundation
 import UIKit
 
-
 // Request struct
 
 struct FilterData: Codable {
@@ -26,7 +25,7 @@ struct AnimalData: Codable {
 
 struct Animal: Codable, Hashable {
     let attributes: AnimalAttributes
-    
+
     static var example: Animal {
         let attributes = AnimalAttributes(
             ageGroup: "Young",
@@ -41,8 +40,9 @@ struct Animal: Codable, Hashable {
             sex: "Male",
             sizeUOM: "Pounds",
             createdDate: "2008",
-            updatedDate: "2010")
-        
+            updatedDate: "2010"
+        )
+
         return Animal(attributes: attributes)
     }
 }
@@ -60,12 +60,11 @@ struct AnimalAttributes: Codable, Hashable {
     let sex: String?
     let sizeUOM: String?
     let createdDate, updatedDate: String?
-    // Add more attributes as needed
 }
 
 struct Included: Codable, Hashable {
     let attributes: IncludedAttributes
-    
+
     static var example: Included {
         let attributes = IncludedAttributes(
             phone: "9195195946",
@@ -73,30 +72,14 @@ struct Included: Codable, Hashable {
             state: "North Carolina",
             email: "albm@unc.edu"
         )
-        
+
         return Included(attributes: attributes)
     }
 }
 
 struct IncludedAttributes: Codable, Hashable {
-//        let name: String?
-//        let singular: String?
-//        let plural: String?
-//        let youngSingular: String?
-//        let youngPlural: String?
-//        let description: String?
-//        let street: String?
-        let phone: String?
-//        let lat: Double?
-//        let lon: Double?
-//        let coordinates: String?
+    let phone: String?
     let city: String?
     let state: String?
-//        let postalcode: String?
-//        let country: String?
-        let email: String?
-//        let url: String?
-//        let services: String?
-//        let `type`: String?
-//        let citystate: String?
+    let email: String?
 }

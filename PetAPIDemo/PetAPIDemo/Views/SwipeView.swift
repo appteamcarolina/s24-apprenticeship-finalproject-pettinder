@@ -63,9 +63,3 @@ struct SwipeView: View {
         .accentColor(Color.pink1)
         }
     }
-
-#Preview {
-    NavigationStack {
-        SwipeView(vm: PetViewModel())
-    }
-}

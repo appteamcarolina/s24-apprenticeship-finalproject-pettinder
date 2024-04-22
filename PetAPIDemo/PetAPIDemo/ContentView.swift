@@ -8,23 +8,30 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var vm = PetViewModel()
     @State private var showingSavedView = false
+    @EnvironmentObject private var locationManager: LocationManager
 
     var body: some View {
-        switch vm.state {
-        case .idle:
-            IdleView(vm: vm)
-        case .loading:
-            LoadingView()
-        case .working:
-            NavigationStack {
-                SwipeView(vm: vm)
+        Group {
+            if locationManager.hasLocationAccess {
+                if let userLocation = locationManager.postalCode {
+                    SwitchView(vm: PetViewModel(postalcode: userLocation))
+                }
+            } else {
+                LoadingView()
+            }
+        }
+        .onAppear {
+            locationManager.requestLocation()
+        }
+        .onChange(of: locationManager.hasLocationAccess) { _, hasLocationAccess in
+            if hasLocationAccess {
+                locationManager.requestLocation()
             }
         }
     }
 }
 
 #Preview {
-    ContentView()
+    ContentView().environmentObject(LocationManager())
 }

@@ -7,14 +7,19 @@
 
 import Foundation
 import UIKit
+import CoreLocation
 
 @MainActor
 class PetViewModel: ObservableObject {
     @Published var pets: [Animal] = []
     @Published var included: [Included] = []
     @Published var state: loadingState = .idle
-    @Published var miles: Int = 50
-    @Published var postal: Int = 27707 // autopopulate based on user location
+    @Published var postalcode: String
+    @Published var miles = 25
+    
+    init(postalcode: String) {
+        self.postalcode = postalcode
+    }
     
     enum loadingState {
         case idle
@@ -24,7 +29,7 @@ class PetViewModel: ObservableObject {
     
     func fetchPets() async throws {
         state = .loading
-        let data = try await PetService.fetchPets(miles: miles, postal: postal)
+        let data = try await PetService.fetchPets(miles: miles, postalcode: postalcode)
         pets = data.data
         included = data.included
         state = .working

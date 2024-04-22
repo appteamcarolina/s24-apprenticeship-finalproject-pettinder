@@ -15,7 +15,7 @@ struct SwipeView: View {
         TabView {
             VStack {
                 ZStack {
-                    Image("whisker-bg2")
+                    Image("whisker-bg4")
                         .resizable()
                         .ignoresSafeArea()
                         .scaledToFill()

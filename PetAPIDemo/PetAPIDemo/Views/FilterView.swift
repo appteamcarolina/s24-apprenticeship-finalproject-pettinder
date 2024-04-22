@@ -25,7 +25,7 @@ struct FilterView: View {
                 .padding()
                 HStack {
                     Text("**Enter Radius in Miles**")
-                        .foregroundStyle(.black)
+                        .foregroundColor(.primary)
                     TextField("\(vm.miles.description)", text: $miles)
                         .multilineTextAlignment(.trailing)
                 }
